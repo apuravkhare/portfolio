@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  output: 'export', // Forces Next.js to compile your portfolio into pure HTML/CSS/JS assets
+  images: {
+    unoptimized: true, // Required because GitHub Pages cannot run the live Next.js Image optimization server
+  },
 };
 
 export default nextConfig;
