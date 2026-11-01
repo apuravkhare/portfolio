@@ -1,81 +1,69 @@
 'use client';
 
-import { Key, Orientation, Tabs } from '@heroui/react';
-import { Pages } from './Pages';
+import { Disclosure, DisclosureButton, DisclosurePanel, Tab, TabGroup, TabList } from '@headlessui/react'
+import allPages from './Pages';
 import { usePathname } from 'next/navigation';
-import { Accordion } from "@heroui/react";
-import { ChevronDown } from 'react-feather';
+import { ChevronDown, Link } from 'react-feather';
 
-function MenuTabs({ orientation }: { orientation: Orientation }) {
+function MenuTabs({ orientation }: { orientation: string }) {
   const pathName = usePathname();
-  const pathNameAsKey = pathName === "/" ? Pages.Home : pathName.slice(1) as Key;
+  const pathNameAsKey = pathName === "/" ? 'home' : pathName.slice(1);
+
   return (
-    <Tabs
-      orientation={orientation}
-      defaultSelectedKey={Pages.Home}
-      selectedKey={pathNameAsKey}
-      variant="primary"
-      aria-label="Navigation Tabs">
-      <Tabs.ListContainer>
-        <Tabs.List aria-label="Options">
-          <Tabs.Tab id={Pages.Home} href="/">
-            Home
-            <Tabs.Indicator />
-          </Tabs.Tab>
-          <Tabs.Tab id={Pages.Code} href="/code">
-            Code
-            <Tabs.Indicator />
-          </Tabs.Tab>
-          <Tabs.Tab id={Pages.Art} href="/art">
-            Art
-            <Tabs.Indicator />
-          </Tabs.Tab>
-          <Tabs.Tab id={Pages.Music} href="/music">
-            Music
-            <Tabs.Indicator />
-          </Tabs.Tab>
-          <Tabs.Tab id={Pages.Contact} href="/contact">
-            Contact
-            <Tabs.Indicator />
-          </Tabs.Tab>
-        </Tabs.List>
-      </Tabs.ListContainer>
-    </Tabs>
+    <TabGroup
+      vertical={orientation === 'vertical'}
+      aria-label="Navigation Tabs"
+    >
+      <TabList aria-label="Options" className="flex gap-2">
+        {allPages().map((page, index) =>
+          <Tab className="rounded-full px-3 py-1 text-sm/6 font-semibold text-white focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white data-hover:bg-white/5 data-selected:bg-white/10 data-selected:data-hover:bg-white/10" data-selected={pathNameAsKey === page.id} key={page.id}>
+            <a href={`/${page.id === 'home' ? '' : page.id}`}>
+              {page.display}
+            </a>
+          </Tab>
+        )}
+      </TabList>
+    </TabGroup>
   );
 }
 
+function MenuAccordion() {
+  return (
+    <div
+      aria-label="Navigation Tabs"
+      className="flex flex-col items-center gap-2"
+    >
+      {allPages().map((page, index) =>
+        <DisclosurePanel key={page.id}>
+          <a className="rounded-full px-3 py-1 font-semibold text-white bg-gray-600" href={`/${page.id === 'home' ? '' : page.id}`}>
+            {page.display}
+          </a>
+        </DisclosurePanel>
+      )}
+    </div>
+  )
+}
+
 export default function Nav() {
-
-
   return (
     <div className="absolute top-0 left-0 w-full p-2 z-50">
       <div className="hidden md:flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-200 text-shadow-2xs">
+        <h1 className="text-2xl font-bold text-gray-200">
           Apurav Khare
         </h1>
         <MenuTabs orientation="horizontal" />
       </div>
 
-      <div className="md:hidden flex items-center justify-center">
-        <Accordion className="w-full max-w-md ">
-          <Accordion.Item>
-            <Accordion.Heading>
-              <Accordion.Trigger>
-                <h1 className="text-2xl font-bold text-gray-200 text-shadow-2xs">
-                  Apurav Khare
-                </h1>
-                <Accordion.Indicator>
-                  <ChevronDown />
-                </Accordion.Indicator>
-              </Accordion.Trigger>
-            </Accordion.Heading>
-            <Accordion.Panel>
-              <Accordion.Body>
-                <MenuTabs orientation="vertical" />
-              </Accordion.Body>
-            </Accordion.Panel>
-          </Accordion.Item>
-        </Accordion>
+      <div className="md:hidden flex items-center justify-center cursor-pointer">
+        <Disclosure as="div">
+          <DisclosureButton className="group flex flex-row items-center justify-center">
+            <span className="text-2xl font-bold text-gray-200">
+              Apurav Khare
+            </span>
+            <ChevronDown className="size-5 text-gray-200 group-data-open:rotate-180" />
+          </DisclosureButton>
+          <MenuAccordion />
+        </Disclosure>
       </div>
     </div>
   );

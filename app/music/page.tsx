@@ -1,7 +1,6 @@
 'use client';
 
 import backgroundImage from '../../public/DSCF2170.webp';
-import { Surface } from "@heroui/react";
 import allSongs from './MusicInfo';
 import { BandcampEmbedItem } from './BandcampEmbedItem';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,7 +13,7 @@ import 'swiper/css/navigation';
 
 function MusicCard({ song }: { song: BandcampEmbedItem }) {
   return (
-    <Surface className="flex flex-col gap-2 rounded-3xl p-6" variant="default">
+    <div className="flex flex-col gap-2 rounded-3xl p-6 surface-card">
       <h3 className="text-base font-semibold text-foreground">{song.title}</h3>
       <p className="text-sm text-muted">
         {song.metadata.description}
@@ -23,7 +22,7 @@ function MusicCard({ song }: { song: BandcampEmbedItem }) {
         style={{ "border": 0, "width": "100%", "height": "42px" }}
         src={song.iframeSrc} seamless>
       </iframe>
-    </Surface>
+    </div>
   );
 }
 

@@ -2,20 +2,17 @@
 
 import backgroundImage from '../../public/DSCF2172.webp';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Mousewheel, Navigation, EffectCards } from 'swiper/modules';
+import { Mousewheel } from 'swiper/modules';
 import { Suspense } from 'react';
-import { Surface } from "@heroui/react";
 import { ExternalLink } from 'react-feather';
 
 import 'swiper/css';
-import 'swiper/css/effect-cards';
-import 'swiper/css/navigation';
 import type CodeCard from './CodeCard';
 import allCodeCardInfos from './CodeCardInfo';
 
 function CodeCard({ card }: { card: CodeCard }) {
   return (
-    <Surface className="rounded-3xl p-6">
+    <div className="rounded-3xl p-6 surface-card">
       <div className="w-full h-full flex flex-col items-center justify-end">
         <div className="p-6 text-center">
           <h1 className="text-4xl font-bold p-2" data-swiper-parallax="-300">
@@ -35,35 +32,31 @@ function CodeCard({ card }: { card: CodeCard }) {
             </a>
           </div>}
       </div>
-    </Surface >
+    </div>
   )
 }
 
-function MusicCardList({ cards }: { cards: CodeCard[] }) {
+function CodeCardList({ cards }: { cards: CodeCard[] }) {
   return (
-    <div className="flex flex-col justify-center items-center mb-2">
+    <div className="flex flex-col gap-2">
       <Swiper
-        modules={[Mousewheel, Navigation, EffectCards]}
-        effect={'cards'}
+        modules={[Mousewheel]}
+        effect='thumbs'
         grabCursor={true}
         centeredSlides={true}
-        navigation={true}
         slidesPerView={'auto'}
         mousewheel={{ forceToAxis: true }}
-        cardsEffect={{
-          perSlideOffset: 8,
-          perSlideRotate: 2,
-          rotate: true
-        }}
-        className="w-full py-12 max-w-5xl"
+        className="w-full max-w-5xl"
+        direction="vertical"
+        spaceBetween="15"
       >
         {cards.map((card, index) =>
-          <SwiperSlide
-            style={{ "width": "60%" }}>
+          <SwiperSlide>
             <CodeCard key={index} card={card} />
           </SwiperSlide>)
         }
       </Swiper>
+
     </div>
   );
 }
@@ -72,11 +65,9 @@ export default function Code() {
   return (
     <div
       style={{ backgroundImage: `url(${backgroundImage.src})` }}
-      className="w-full h-screen bg-cover bg-center flex flex-col justify-center items-center">
-      <div className="min-h-[10%]">
-      </div>
+      className="w-full h-screen bg-cover bg-center flex items-center justify-center">
       <Suspense fallback={<div>Loading...</div>}>
-        <MusicCardList cards={allCodeCardInfos()} />
+        <CodeCardList cards={allCodeCardInfos()} />
       </Suspense>
     </div>
   );
