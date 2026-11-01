@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, // Required because GitHub Pages cannot run the live Next.js Image optimization server
   },
+  trailingSlash: true,
 };
 
 export default nextConfig;
