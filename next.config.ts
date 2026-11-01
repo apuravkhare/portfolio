@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
     unoptimized: true, // Required because GitHub Pages cannot run the live Next.js Image optimization server
   },
   trailingSlash: true,
-  basePath: '',
 };
 
 export default nextConfig;
