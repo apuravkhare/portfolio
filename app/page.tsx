@@ -1,8 +1,8 @@
-
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      HOME PAGE
-    </main>
+    <div  className="w-full h-screen bg-black bg-cover bg-center flex flex-row items-center justify-center gap-4">
+      <span className="font-cursive text-8xl mix-blend-difference text-white">Apurav</span>
+      <span className="font-mono text-6xl mix-blend-difference text-white">Khare</span>
+    </div>
   );
 }

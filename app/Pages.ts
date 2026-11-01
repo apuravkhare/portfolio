@@ -1,6 +1,6 @@
-import Page from "./Page"
+import PageType from "./PageType"
 
-export default function allPages(): Page[] {
+export default function allPages(): PageType[] {
   return [
     {
       id: 'home',
