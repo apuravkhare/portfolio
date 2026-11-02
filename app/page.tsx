@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Parallax from 'parallax-js';
 import backgroundImage from '../public/parallax_bg.png';
+import foregroundImage_1 from '../public/parallax_bg_2.png';
 
 declare global {
   interface Window {
@@ -34,7 +35,11 @@ export default function Home() {
   return (
     <div ref={sceneRef} className="w-full h-screen bg-black overflow-hidden">
       <div data-depth="0.2" className="w-full h-screen">
-        <div style={{ backgroundImage: `url(${backgroundImage.src})` }} className="w-full h-screen bg-cover bg-center">
+        <div style={{ backgroundImage: `url(${backgroundImage.src})` }} className="w-full h-screen bg-cover bg-center glow-icon-orange">
+        </div>
+      </div>
+      <div data-depth="0.4" className="w-full h-screen">
+        <div style={{ backgroundImage: `url(${foregroundImage_1.src})` }} className="w-full h-screen bg-contain bg-no-repeat bg-bottom glow-icon-red">
         </div>
       </div>
       <div data-depth="0.6" className="w-full h-screen">
