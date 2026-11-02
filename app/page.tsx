@@ -27,6 +27,8 @@ export default function Home() {
       hoverOnly: false,
       calibrateX: true,
       calibrateY: true,
+      scaleX: 10,
+      scaleY: 10,
     });
 
     setIsPermissionGranted(true);
